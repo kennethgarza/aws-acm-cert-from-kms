@@ -1,0 +1,43 @@
+services:
+  localstack:
+    image: localstack/localstack-pro  ## pro version only, if you have an api key see the envfile.example file to add it 
+    # image: localstack/localstack    ## if you do not have an api key, you can use the free version
+    ports: 
+      - "4566:4566"            # LocalStack Gateway
+      ## uncomment above this line for pro version
+    environment:
+      - SERVICES=rds,secretsmanager,lambda,ec2,kms,iam
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - ENFORCE_IAM=0
+      - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY} ## uncomment this line if you do not have an api key or are using the free version
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    healthcheck:
+      test:
+        - CMD
+        - bash
+        - -c
+        - awslocal sqs list-queues
+      interval: 5s
+      timeout: 10s
+      start_period: 10s
+  terraform:
+    image: hashicorp/terraform
+    entrypoint: []
+    depends_on:
+      localstack:
+        condition: service_healthy
+    command:
+      - sh 
+      - -c
+      - "cd /src && sleep 5 && terraform init && sleep 5 && terraform apply -auto-approve && sleep infinity"
+    environment:
+      - LOCALSTACK_HOSTNAME=localstack
+    volumes:
+      - ..:/src
+networks: 
+  default: 
+    name: localstack-network
+

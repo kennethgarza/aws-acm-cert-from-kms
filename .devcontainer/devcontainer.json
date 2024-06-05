@@ -1,0 +1,11 @@
+{
+	"name": "webhook_template",
+    "dockerComposeFile" : [
+        "docker-compose.yml"
+    ],
+    "service" : "terraform",
+    "workspaceFolder": "/src",
+	"forwardPorts": [
+		0
+	]
+}

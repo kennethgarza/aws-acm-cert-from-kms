@@ -1,0 +1,8 @@
+## save copy and save this file as .env in the folder 
+## put all your secrets in here
+## leave this file for examples for future use
+## the .env file and your secrets should be ignored by the .gitignore file
+#### DOUBLE CHECK THIS!!!!
+
+LOCALSTACK_API_KEY="LOCAL STACK API KEY HERE"
+GITLAB_API_KEY="GITLAB KEY HERE"
