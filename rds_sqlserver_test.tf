@@ -12,8 +12,8 @@ resource "aws_db_instance" "sql_server" {
   engine_version       = "15.00.4073.23.v1"  # SQL Server 2019
   identifier           = "test-instance"
   instance_class       = "db.t2.micro"
-  username             = jsondecode(data.aws_secretsmanager_secret_version.rds_secret_version.secret_string)["username"]
-  password             = jsondecode(data.aws_secretsmanager_secret_version.rds_secret_version.secret_string)["password"]
+  username             = jsondecode(data.aws_secretsmanager_secret_version.rds_secret.secret_string)["username"]
+  password             = jsondecode(data.aws_secretsmanager_secret_version.rds_secret.secret_string)["password"]
   parameter_group_name = "default.sqlserver-se-15.0"
   skip_final_snapshot  = true
   vpc_security_group_ids = [
