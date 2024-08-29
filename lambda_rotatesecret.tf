@@ -17,6 +17,6 @@ resource "aws_secretsmanager_secret_rotation" "rds_secret_rotation" {
   secret_id     = data.aws_secretsmanager_secret.rds_secret.id
   rotation_lambda_arn = aws_lambda_function.rotate_secret.arn
   rotation_rules {
-    automatically_after_days = 1 / 288  # 5 minutes
+    automatically_after_days = 1
   }
 }
