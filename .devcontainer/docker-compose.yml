@@ -3,13 +3,14 @@ services:
     image: localstack/localstack-pro 
     ports: 
       - "4566:4566"            # LocalStack Gateway
-      ## uncomment above this line for pro version
+      - "4510:4510"            # rds
     environment:
       - SERVICES=rds,secretsmanager,lambda,ec2,kms,iam,sqs
       - DEBUG=1
       - DATA_DIR=/tmp/localstack/data
       - ENFORCE_IAM=0
       - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY}
+      - MSSQL_ACCEPT_EULA=Y
     volumes:
       - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
@@ -36,7 +37,4 @@ services:
       - LOCALSTACK_HOSTNAME=localstack
     volumes:
       - ..:/src
-networks: 
-  default: 
-    name: localstack-network
 

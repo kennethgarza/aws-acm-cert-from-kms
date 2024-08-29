@@ -1,0 +1,9 @@
+{
+    "name": "rotate-secret",
+    "version": "1.0.0",
+    "description": "Lambda function for rotating RDS secrets",
+    "main": "index.js",
+    "dependencies": {
+      "aws-sdk": "^2.814.0"
+    }
+  }
