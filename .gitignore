@@ -2,3 +2,6 @@
 .devcontainer/volume
 .terraform
 .terraform.lock.hcl
+*.zip
+terraform.tfstat*
+rotate_secret/node_modules
